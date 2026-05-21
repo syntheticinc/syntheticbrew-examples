@@ -19,7 +19,7 @@ services:
       - mcp-bin:/opt/mcp
 
   engine:
-    image: syntheticinc/engine:latest
+    image: syntheticinc/syntheticbrew:latest
     ports:
       - "8443:8443"
     environment:

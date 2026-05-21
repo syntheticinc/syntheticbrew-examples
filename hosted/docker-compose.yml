@@ -56,7 +56,7 @@ services:
 
   # Single Engine instance for all examples
   engine:
-    image: syntheticinc/engine:latest
+    image: syntheticinc/syntheticbrew:latest
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER:-syntheticbrew}:${POSTGRES_PASSWORD:-syntheticbrew}@db:5432/${POSTGRES_DB:-syntheticbrew}?sslmode=disable"
       ADMIN_USER: ${ADMIN_USER:-admin}
