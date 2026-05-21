@@ -27,7 +27,7 @@ if [ -z "$TOKEN" ]; then
 fi
 
 # Import config
-CONFIG_FILE="/etc/bytebrew/agents.yaml"
+CONFIG_FILE="/etc/syntheticbrew/agents.yaml"
 if [ -f "$CONFIG_FILE" ]; then
   echo "Importing config..."
   wget -qO- --post-file="$CONFIG_FILE" \

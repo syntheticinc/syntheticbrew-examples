@@ -1,10 +1,10 @@
 # Widget Integration Example
 
-Demonstrates embedding the ByteBrew AI chat widget on a website.
+Demonstrates embedding the SyntheticBrew AI chat widget on a website.
 
 ## Prerequisites
 
-- ByteBrew Engine running (`docker compose up -d`)
+- SyntheticBrew Engine running (`docker compose up -d`)
 - An agent configured and marked as **Public**
 - An API key with **Chat (Public)** scope
 
@@ -31,10 +31,10 @@ Demonstrates embedding the ByteBrew AI chat widget on a website.
 ## Modes
 
 ### Direct Mode
-Widget connects directly to ByteBrew Engine. Use for simple integrations where the API key can be public.
+Widget connects directly to SyntheticBrew Engine. Use for simple integrations where the API key can be public.
 
 ### Proxy Mode
-Widget connects to your backend, which forwards requests to ByteBrew Engine. Use when you need to add authentication, rate limiting, or user context.
+Widget connects to your backend, which forwards requests to SyntheticBrew Engine. Use when you need to add authentication, rate limiting, or user context.
 
 ```html
 <script src="http://localhost:8443/widget.js"

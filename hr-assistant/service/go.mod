@@ -1,4 +1,4 @@
-module github.com/syntheticinc/bytebrew-examples/hr-assistant/service
+module github.com/syntheticinc/syntheticbrew-examples/hr-assistant/service
 
 go 1.24
 

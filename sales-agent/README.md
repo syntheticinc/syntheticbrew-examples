@@ -1,6 +1,6 @@
 # Sales Agent Example
 
-A ByteBrew example demonstrating a sales assistant for **TechGear Electronics** -- an AI agent that helps customers find products, check availability, create price quotes, and apply discounts.
+A SyntheticBrew example demonstrating a sales assistant for **TechGear Electronics** -- an AI agent that helps customers find products, check availability, create price quotes, and apply discounts.
 
 ## What This Demonstrates
 
@@ -62,7 +62,7 @@ The service proxy forwards these headers to the Engine, which uses them instead 
                           Engine REST API
                                  |
                         +--------v---------+
-                        | ByteBrew Engine  |
+                        | SyntheticBrew Engine  |
                         | :8443            |
                         |  - Agent runtime |
                         |  - confirm_before|
@@ -99,8 +99,8 @@ docker compose up -d
 This starts:
 - **PostgreSQL** -- Engine database
 - **MCP Server** -- Sales data tools (built as a Go binary)
-- **Engine** -- ByteBrew agent runtime (port 8443)
-- **Web Client** -- ByteBrew Web Client -- chat UI (port 3000)
+- **Engine** -- SyntheticBrew agent runtime (port 8443)
+- **Web Client** -- SyntheticBrew Web Client -- chat UI (port 3000)
 
 ### 3. Seed Settings
 

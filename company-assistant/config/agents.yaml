@@ -1,5 +1,5 @@
 # =============================================================================
-# ByteBrew Company Assistant -- Agent Configuration
+# SyntheticBrew Company Assistant -- Agent Configuration
 # =============================================================================
 # This file is imported into the engine on first startup via the config API.
 # Environment variables (${VAR}) are expanded at import time.

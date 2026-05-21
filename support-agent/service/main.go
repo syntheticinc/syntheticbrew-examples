@@ -583,7 +583,7 @@ func (s *Service) buildRouter() chi.Router {
 	// Static files placeholder (for web-client build output).
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		w.Write([]byte(`<!DOCTYPE html><html><body><p>ByteBrew Support Agent</p></body></html>`))
+		w.Write([]byte(`<!DOCTYPE html><html><body><p>SyntheticBrew Support Agent</p></body></html>`))
 	})
 
 	return r

@@ -1,4 +1,4 @@
-module github.com/syntheticinc/bytebrew-examples/support-agent/service
+module github.com/syntheticinc/syntheticbrew-examples/support-agent/service
 
 go 1.24
 
