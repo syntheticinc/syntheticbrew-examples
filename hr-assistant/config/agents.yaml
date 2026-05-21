@@ -1,5 +1,5 @@
 # =============================================================================
-# ByteBrew HR Assistant -- Agent Configuration
+# SyntheticBrew HR Assistant -- Agent Configuration
 # =============================================================================
 # This file is imported into the engine on first startup via the config API.
 # Environment variables (${VAR}) are expanded at import time.
@@ -43,7 +43,7 @@ agents:
           type: "stdio"
           command: "/opt/mcp/hr-mcp-server"
     knowledge:
-      path: /etc/bytebrew/knowledge
+      path: /etc/syntheticbrew/knowledge
     escalation:
       triggers:
         - "escalate"

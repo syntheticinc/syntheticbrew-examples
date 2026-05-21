@@ -41,7 +41,7 @@ agents:
     mcp_servers:
       - hr-data
     knowledge:
-      path: /etc/bytebrew/knowledge
+      path: /etc/syntheticbrew/knowledge
     escalation:
       triggers:
         - "escalate"

@@ -1,6 +1,6 @@
-# ByteBrew Examples
+# SyntheticBrew Examples
 
-Ready-to-run demos for [ByteBrew Engine](https://github.com/syntheticinc/bytebrew) -- the open-source multi-agent platform.
+Ready-to-run demos for [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew) -- the open-source multi-agent platform.
 
 Each example is self-contained: clone, configure your API key, run `docker compose up`, and start chatting.
 
@@ -15,8 +15,8 @@ Each example is self-contained: clone, configure your API key, run `docker compo
 ## Quick Start
 
 ```bash
-git clone https://github.com/syntheticinc/bytebrew-examples.git
-cd bytebrew-examples/hr-assistant
+git clone https://github.com/syntheticinc/syntheticbrew-examples.git
+cd syntheticbrew-examples/hr-assistant
 
 cp .env.example .env
 # Edit .env -- add your LLM API key (OpenAI, OpenRouter, or configure Ollama)

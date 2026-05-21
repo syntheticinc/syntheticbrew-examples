@@ -1,3 +1,3 @@
-module github.com/syntheticinc/bytebrew-examples/company-assistant/mcp-server
+module github.com/syntheticinc/syntheticbrew-examples/company-assistant/mcp-server
 
 go 1.24

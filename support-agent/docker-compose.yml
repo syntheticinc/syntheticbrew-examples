@@ -2,13 +2,13 @@ services:
   db:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-bytebrew}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bytebrew}
-      POSTGRES_DB: ${POSTGRES_DB:-bytebrew}
+      POSTGRES_USER: ${POSTGRES_USER:-syntheticbrew}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-syntheticbrew}
+      POSTGRES_DB: ${POSTGRES_DB:-syntheticbrew}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bytebrew}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-syntheticbrew}"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -19,20 +19,20 @@ services:
       - mcp-bin:/opt/mcp
 
   engine:
-    image: bytebrew/engine:latest
+    image: syntheticinc/syntheticbrew:latest
     ports:
       - "8443:8443"
     environment:
-      DATABASE_URL: "postgresql://${POSTGRES_USER:-bytebrew}:${POSTGRES_PASSWORD:-bytebrew}@db:5432/${POSTGRES_DB:-bytebrew}?sslmode=disable"
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-syntheticbrew}:${POSTGRES_PASSWORD:-syntheticbrew}@db:5432/${POSTGRES_DB:-syntheticbrew}?sslmode=disable"
       ADMIN_USER: ${ADMIN_USER:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme}
-      BYTEBREW_AUTH_MODE: ${BYTEBREW_AUTH_MODE:-local}
-      BYTEBREW_JWT_KEYS_DIR: ${BYTEBREW_JWT_KEYS_DIR:-/var/lib/bytebrew/keys}
+      SYNTHETICBREW_AUTH_MODE: ${SYNTHETICBREW_AUTH_MODE:-local}
+      SYNTHETICBREW_JWT_KEYS_DIR: ${SYNTHETICBREW_JWT_KEYS_DIR:-/var/lib/syntheticbrew/keys}
     volumes:
-      - ./config/agents.yaml:/etc/bytebrew/agents.yaml:ro
+      - ./config/agents.yaml:/etc/syntheticbrew/agents.yaml:ro
       - ./scripts/seed-config.sh:/docker-entrypoint.d/seed-config.sh:ro
       - mcp-bin:/opt/mcp:ro
-      - engine-keys:/var/lib/bytebrew/keys
+      - engine-keys:/var/lib/syntheticbrew/keys
     depends_on:
       db:
         condition: service_healthy
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
 
   web-client:
-    image: bytebrew/web-client:latest
+    image: syntheticinc/web-client:latest
     ports:
       - "3000:80"
     environment:

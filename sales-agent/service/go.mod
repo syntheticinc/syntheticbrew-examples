@@ -1,4 +1,4 @@
-module github.com/syntheticinc/bytebrew-examples/sales-agent/service
+module github.com/syntheticinc/syntheticbrew-examples/sales-agent/service
 
 go 1.24
 

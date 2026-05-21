@@ -1,5 +1,5 @@
 # =============================================================================
-# ByteBrew Support Agent -- Agent Configuration
+# SyntheticBrew Support Agent -- Agent Configuration
 # =============================================================================
 # Demonstrates multi-agent spawn (router → specialists) and parallel tool
 # execution. Imported into the engine on first startup via the config API.

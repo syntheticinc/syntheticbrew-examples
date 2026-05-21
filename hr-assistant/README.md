@@ -1,6 +1,6 @@
 # HR Assistant
 
-An AI-powered HR assistant built with [ByteBrew Engine](https://github.com/syntheticinc/bytebrew). Demonstrates **Knowledge Base (RAG)**, **ask_user** interactive flow, **MCP tool servers**, and **escalation** to human agents.
+An AI-powered HR assistant built with [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew). Demonstrates **Knowledge Base (RAG)**, **ask_user** interactive flow, **MCP tool servers**, and **escalation** to human agents.
 
 ## What It Does
 
@@ -88,8 +88,8 @@ When the agent cannot resolve an issue, it triggers an escalation webhook to han
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/syntheticinc/bytebrew-examples.git
-cd bytebrew-examples/hr-assistant
+git clone https://github.com/syntheticinc/syntheticbrew-examples.git
+cd syntheticbrew-examples/hr-assistant
 
 cp .env.example .env
 ```
@@ -131,8 +131,8 @@ This starts four services:
 |---------|-------------|
 | **db** | PostgreSQL (pgvector) -- agent state and knowledge base storage |
 | **mcp-server** | Builds the HR data MCP tool server binary |
-| **engine** | ByteBrew Engine -- the AI agent platform (port 8443) |
-| **web-client** | ByteBrew Web Client -- chat UI (port 3000) |
+| **engine** | SyntheticBrew Engine -- the AI agent platform (port 8443) |
+| **web-client** | SyntheticBrew Web Client -- chat UI (port 3000) |
 
 Wait ~30 seconds for the engine to start and import the agent configuration.
 
@@ -272,7 +272,7 @@ Check logs with `docker compose logs engine`. Common issues:
 - Invalid API key or base URL
 
 **Knowledge search returns no results:**
-- Verify knowledge files are mounted: `docker compose exec engine ls /etc/bytebrew/knowledge/`
+- Verify knowledge files are mounted: `docker compose exec engine ls /etc/syntheticbrew/knowledge/`
 - Check engine logs for indexing errors: `docker compose logs -f engine`
 
 **Agent not responding:**

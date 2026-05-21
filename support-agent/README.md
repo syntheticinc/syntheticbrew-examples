@@ -1,6 +1,6 @@
 # Support Agent
 
-A multi-agent customer support system built with [ByteBrew Engine](https://github.com/syntheticinc/bytebrew). Demonstrates **multi-agent spawn** (router delegates to specialists), **parallel tool execution**, and **MCP tool servers** with 8 support data tools.
+A multi-agent customer support system built with [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew). Demonstrates **multi-agent spawn** (router delegates to specialists), **parallel tool execution**, and **MCP tool servers** with 8 support data tools.
 
 ## What It Does
 
@@ -115,8 +115,8 @@ A Go-based MCP stdio server provides customer support data tools with realistic 
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/syntheticinc/bytebrew-examples.git
-cd bytebrew-examples/support-agent
+git clone https://github.com/syntheticinc/syntheticbrew-examples.git
+cd syntheticbrew-examples/support-agent
 
 cp .env.example .env
 ```
@@ -158,8 +158,8 @@ This starts four services:
 |---------|-------------|
 | **db** | PostgreSQL (pgvector) -- agent state and knowledge storage |
 | **mcp-server** | Builds the support data MCP tool server binary |
-| **engine** | ByteBrew Engine -- the AI agent platform (port 8443) |
-| **web-client** | ByteBrew Web Client -- chat UI (port 3000) |
+| **engine** | SyntheticBrew Engine -- the AI agent platform (port 8443) |
+| **web-client** | SyntheticBrew Web Client -- chat UI (port 3000) |
 
 Wait ~30 seconds for the engine to start and import the agent configuration.
 

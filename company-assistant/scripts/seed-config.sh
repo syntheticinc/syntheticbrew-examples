@@ -7,7 +7,7 @@
 
 set -e
 
-CONFIG_FILE="/etc/bytebrew/agents.yaml"
+CONFIG_FILE="/etc/syntheticbrew/agents.yaml"
 ENGINE_URL="http://localhost:8443"
 MAX_RETRIES=30
 RETRY_INTERVAL=2

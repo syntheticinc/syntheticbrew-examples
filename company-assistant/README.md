@@ -1,6 +1,6 @@
 # Company Assistant
 
-A multi-agent company assistant built with [ByteBrew Engine](https://github.com/syntheticinc/bytebrew). Demonstrates agent routing, MCP tool servers, and multi-agent collaboration.
+A multi-agent company assistant built with [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew). Demonstrates agent routing, MCP tool servers, and multi-agent collaboration.
 
 ## What It Does
 
@@ -51,8 +51,8 @@ Three agents work together to handle employee requests:
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/syntheticinc/bytebrew-examples.git
-cd bytebrew-examples/company-assistant
+git clone https://github.com/syntheticinc/syntheticbrew-examples.git
+cd syntheticbrew-examples/company-assistant
 
 cp .env.example .env
 ```
@@ -82,7 +82,7 @@ docker compose up -d
 This starts three services:
 - **PostgreSQL** (pgvector) -- agent state and configuration storage
 - **MCP Server** -- builds the company data tool server binary
-- **ByteBrew Engine** -- the multi-agent platform (port 8443)
+- **SyntheticBrew Engine** -- the multi-agent platform (port 8443)
 
 Wait ~30 seconds for the engine to start and import the agent configuration.
 
@@ -131,14 +131,14 @@ curl -s -X POST \
 curl -N http://localhost:8443/api/v1/sessions/SESSION_ID/events
 ```
 
-## Chat via ByteBrew Web Client
+## Chat via SyntheticBrew Web Client
 
-For a full chat UI, use the [ByteBrew Web Client](https://github.com/syntheticinc/bytebrew-web-client):
+For a full chat UI, use the [SyntheticBrew Web Client](https://github.com/syntheticinc/syntheticbrew-web-client):
 
 ```bash
 # In a separate directory
-git clone https://github.com/syntheticinc/bytebrew-web-client.git
-cd bytebrew-web-client
+git clone https://github.com/syntheticinc/syntheticbrew-web-client.git
+cd syntheticbrew-web-client
 npm install
 VITE_ENGINE_URL=http://localhost:8443 npm run dev
 ```
