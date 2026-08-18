@@ -1,45 +1,26 @@
 # SyntheticBrew Examples
 
-Ready-to-run demos for [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew) -- the open-source multi-agent platform.
+This repository contains public example source for MCP tool servers, sample data, and product integrations. Use the examples as implementation patterns with [SyntheticBrew Cloud](https://syntheticbrew.ai/docs/getting-started/quick-start/) or a licensed [SyntheticBrew Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) deployment.
 
-Each example is self-contained: clone, configure your API key, run `docker compose up`, and start chatting.
+The bundled Docker Compose files and declarative configuration predate the current Cloud and Enterprise product model. They are retained as historical source examples, not as a supported SyntheticBrew installation path. Do not use the old SyntheticBrew image references, local-admin credentials, session endpoints, or `can_spawn` fields as current setup instructions.
 
 ## Examples
 
-| Example | Description | Agents | Key Features |
-|---------|-------------|--------|--------------|
-| [hr-assistant](./hr-assistant/) | AI-powered HR assistant with leave management and company policies | hr-assistant | Knowledge Base (RAG), ask_user, MCP tools, escalation |
-| [support-agent](./support-agent/) | Multi-agent customer support with specialist routing | support-router, billing, technical | Multi-agent spawn, parallel tool execution, 8 MCP tools |
-| [sales-agent](./sales-agent/) | Sales assistant for product search, quotes, and discounts | sales-agent | confirm_before, Settings CRUD, BYOK (Bring Your Own Key) |
+| Example | Reusable parts | Current platform workflow |
+|---|---|---|
+| [HR assistant](./hr-assistant/) | HR data MCP server and sample knowledge documents | Upload documents, link Knowledge, and connect the MCP tools to an agent. |
+| [Support agent](./support-agent/) | Support data MCP server and router/specialist prompts | Create explicit schema relationships from the router to each specialist. |
+| [Sales agent](./sales-agent/) | Product and quote MCP tools | Use structured interruptions for approvals in browser and REST clients. |
+| [Company assistant](./company-assistant/) | Employee and IT-support MCP tools | Create a supervisor and specialists, then define their schema relationships. |
+| [Widget integration](./widget-integration/) | Minimal widget host page | Generate a current schema-scoped embed snippet before adding appearance options. |
 
-## Quick Start
+For a current, forkable end-to-end workflow, use the [support-agent template](https://github.com/syntheticinc/support-agent-example) with the [coding-agent onboarding guide](https://syntheticbrew.ai/docs/integration/connect-coding-agent/).
 
-```bash
-git clone https://github.com/syntheticinc/syntheticbrew-examples.git
-cd syntheticbrew-examples/hr-assistant
+## Product options
 
-cp .env.example .env
-# Edit .env -- add your LLM API key (OpenAI, OpenRouter, or configure Ollama)
-
-docker compose up -d
-```
-
-Open the Web Client at [http://localhost:3000](http://localhost:3000) to start chatting, or the Admin Dashboard at [http://localhost:8443/admin](http://localhost:8443/admin) to manage your agents.
-
-## Prerequisites
-
-- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
-- An LLM API key (OpenAI, or any OpenAI-compatible provider) **OR** [Ollama](https://ollama.ai/) running locally
-
-## Contributing
-
-1. Fork this repository
-2. Create a new directory for your example (e.g. `my-example/`)
-3. Include a `README.md` with setup instructions and a `docker-compose.yml`
-4. Submit a pull request
-
-Each example should be fully self-contained and runnable with `docker compose up`.
+- **SyntheticBrew Cloud** is the managed service operated by SyntheticBrew.
+- **SyntheticBrew Enterprise** is proprietary software deployed on customer-managed on-premises or private infrastructure using licensed artifacts supplied to entitled customers.
 
 ## License
 
-MIT
+The example source in this repository is licensed under the MIT License. That license applies to these examples, not to the SyntheticBrew platform.
