@@ -6,7 +6,7 @@ The bundled Compose stack and YAML configuration target an older SyntheticBrew d
 
 ## Build the current workflow
 
-1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy licensed [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/).
+1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) in your infrastructure.
 2. Adapt `mcp-server/` into a remote Streamable HTTP MCP service for Cloud. Enterprise operators may instead package the stdio binary inside their controlled deployment.
 3. Add the server under **MCP Servers**, verify its catalog, and attach only the tools each specialist needs.
 4. Create `support-router`, `billing`, and `technical` agents. Use a spawn lifecycle for specialists that should exist only during delegated work.

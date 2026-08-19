@@ -1,8 +1,8 @@
 # SyntheticBrew Examples
 
-This repository contains public example source for MCP tool servers, sample data, and product integrations. Use the examples as implementation patterns with [SyntheticBrew Cloud](https://syntheticbrew.ai/docs/getting-started/quick-start/) or a licensed [SyntheticBrew Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) deployment.
+This repository contains public example source for MCP tool servers, sample data, and product integrations. Use the examples as implementation patterns with [SyntheticBrew Cloud](https://syntheticbrew.ai/docs/getting-started/quick-start/) or [SyntheticBrew Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/).
 
-The bundled Docker Compose files and declarative configuration predate the current Cloud and Enterprise product model. They are retained as historical source examples, not as a supported SyntheticBrew installation path. Do not use the old SyntheticBrew image references, local-admin credentials, session endpoints, or `can_spawn` fields as current setup instructions.
+The bundled Docker Compose files and declarative configuration predate the current platform workflow. Reuse the MCP servers, prompts, and sample data, but follow the current documentation for platform setup. The old image references, local-admin credentials, session endpoints, and `can_spawn` fields are not current setup instructions.
 
 ## Examples
 
@@ -19,7 +19,7 @@ For a current, forkable end-to-end workflow, use the [support-agent template](ht
 ## Product options
 
 - **SyntheticBrew Cloud** is the managed service operated by SyntheticBrew.
-- **SyntheticBrew Enterprise** is proprietary software deployed on customer-managed on-premises or private infrastructure using licensed artifacts supplied to entitled customers.
+- **SyntheticBrew Enterprise** runs in customer-managed on-premises or private infrastructure with customer-controlled networking, identity, data, observability, backups, and upgrades.
 
 ## License
 

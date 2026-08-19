@@ -6,7 +6,7 @@ The bundled Compose stack and YAML configuration target an older SyntheticBrew d
 
 ## Build the current workflow
 
-1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy licensed [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/).
+1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) in your infrastructure.
 2. Create an embedding model and a Knowledge base. Upload the Markdown files under `config/knowledge/`, wait for each file to become **ready**, link the base to the HR agent, and enable its Knowledge capability.
 3. Adapt `mcp-server/` into a remote Streamable HTTP MCP service for Cloud. Enterprise operators may instead package the stdio binary inside their controlled deployment. Add the server under **MCP Servers**, verify the catalog, and attach the employee and leave tools to the HR agent.
 4. Put the HR agent in a chat-enabled schema and test policy lookup, balance lookup, and a leave request in the bottom **Test Flow** panel.

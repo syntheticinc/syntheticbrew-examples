@@ -6,7 +6,7 @@ The bundled Compose stack and YAML configuration target an older SyntheticBrew d
 
 ## Build the current workflow
 
-1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy licensed [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/).
+1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) in your infrastructure.
 2. Adapt `mcp-server/` into a remote Streamable HTTP MCP service for Cloud. Enterprise operators may instead package the stdio binary inside their controlled deployment. Add the server under **MCP Servers**, verify its catalog, and give the sales agent only the required tools.
 3. Put the sales agent in a chat-enabled schema and test product search and inventory lookup in the bottom **Test Flow** panel.
 4. For quote or discount approval in Admin, widgets, or REST clients, use a structured-output interruption and resume it with the user's answer. Reserve `confirm_before` for an in-process integration that implements its confirmation callback.
