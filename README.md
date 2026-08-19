@@ -16,6 +16,24 @@ The bundled Docker Compose files and declarative configuration predate the curre
 
 For a current, forkable end-to-end workflow, use the [support-agent template](https://github.com/syntheticinc/support-agent-example) with the [coding-agent onboarding guide](https://syntheticbrew.ai/docs/integration/connect-coding-agent/).
 
+## Use an example safely
+
+1. Start with the Cloud quick start or your supported Enterprise deployment.
+2. Read the example README to understand its agent roles, tools, and sample data.
+3. Adapt the Go MCP server to a transport reachable from your deployment.
+4. Create current agents and a schema in Admin or with a coding agent; do not import the historical YAML unchanged.
+5. Assign only the tools each role needs, then test through the schema's **Test Flow** panel.
+6. Replace every mock authorization and business rule before connecting real data or actions.
+
+The MCP servers are small Go programs and can be inspected without running an old platform stack. Their records are fictional and their in-memory mutations are not durable production storage.
+
+## Common troubleshooting
+
+- Cloud cannot launch a repository's local stdio binary; expose a protected remote MCP transport.
+- Delegation comes from schema relationships. A checked-in `can_spawn` field is historical and is ignored by current declarative workflows.
+- Current chat integrations use `/api/v1/schemas/{schema_name}/chat` and SSE, not the old create-session/message endpoints shown in repository history.
+- A successful mock action does not demonstrate production authorization, idempotency, privacy, retention, or audit controls.
+
 ## Product options
 
 - **SyntheticBrew Cloud** is the managed service operated by SyntheticBrew.
