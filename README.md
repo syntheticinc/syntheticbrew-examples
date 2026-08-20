@@ -1,45 +1,44 @@
 # SyntheticBrew Examples
 
-Ready-to-run demos for [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew) -- the open-source multi-agent platform.
+This repository contains public example source for MCP tool servers, sample data, and product integrations. Use the examples as implementation patterns with [SyntheticBrew Cloud](https://syntheticbrew.ai/docs/getting-started/quick-start/) or [SyntheticBrew Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/).
 
-Each example is self-contained: clone, configure your API key, run `docker compose up`, and start chatting.
+The bundled Docker Compose files and declarative configuration predate the current platform workflow. Reuse the MCP servers, prompts, and sample data, but follow the current documentation for platform setup. The old image references, local-admin credentials, session endpoints, and `can_spawn` fields are not current setup instructions.
 
 ## Examples
 
-| Example | Description | Agents | Key Features |
-|---------|-------------|--------|--------------|
-| [hr-assistant](./hr-assistant/) | AI-powered HR assistant with leave management and company policies | hr-assistant | Knowledge Base (RAG), ask_user, MCP tools, escalation |
-| [support-agent](./support-agent/) | Multi-agent customer support with specialist routing | support-router, billing, technical | Multi-agent spawn, parallel tool execution, 8 MCP tools |
-| [sales-agent](./sales-agent/) | Sales assistant for product search, quotes, and discounts | sales-agent | confirm_before, Settings CRUD, BYOK (Bring Your Own Key) |
+| Example | Reusable parts | Current platform workflow |
+|---|---|---|
+| [HR assistant](./hr-assistant/) | HR data MCP server and sample knowledge documents | Upload documents, link Knowledge, and connect the MCP tools to an agent. |
+| [Support agent](./support-agent/) | Support data MCP server and router/specialist prompts | Create explicit schema relationships from the router to each specialist. |
+| [Sales agent](./sales-agent/) | Product and quote MCP tools | Use structured interruptions for approvals in browser and REST clients. |
+| [Company assistant](./company-assistant/) | Employee and IT-support MCP tools | Create a supervisor and specialists, then define their schema relationships. |
+| [Widget integration](./widget-integration/) | Minimal widget host page | Generate a current schema-scoped embed snippet before adding appearance options. |
 
-## Quick Start
+For a current, forkable end-to-end workflow, use the [support-agent template](https://github.com/syntheticinc/support-agent-example) with the [coding-agent onboarding guide](https://syntheticbrew.ai/docs/integration/connect-coding-agent/).
 
-```bash
-git clone https://github.com/syntheticinc/syntheticbrew-examples.git
-cd syntheticbrew-examples/hr-assistant
+## Use an example safely
 
-cp .env.example .env
-# Edit .env -- add your LLM API key (OpenAI, OpenRouter, or configure Ollama)
+1. Start with the Cloud quick start or your supported Enterprise deployment.
+2. Read the example README to understand its agent roles, tools, and sample data.
+3. Adapt the Go MCP server to a transport reachable from your deployment.
+4. Create current agents and a schema in Admin or with a coding agent; do not import the historical YAML unchanged.
+5. Assign only the tools each role needs, then test through the schema's **Test Flow** panel.
+6. Replace every mock authorization and business rule before connecting real data or actions.
 
-docker compose up -d
-```
+The MCP servers are small Go programs and can be inspected without running an old platform stack. Their records are fictional and their in-memory mutations are not durable production storage.
 
-Open the Web Client at [http://localhost:3000](http://localhost:3000) to start chatting, or the Admin Dashboard at [http://localhost:8443/admin](http://localhost:8443/admin) to manage your agents.
+## Common troubleshooting
 
-## Prerequisites
+- Cloud cannot launch a repository's local stdio binary; expose a protected remote MCP transport.
+- Delegation comes from schema relationships. A checked-in `can_spawn` field is historical and is ignored by current declarative workflows.
+- Current chat integrations use `/api/v1/schemas/{schema_name}/chat` and SSE, not the old create-session/message endpoints shown in repository history.
+- A successful mock action does not demonstrate production authorization, idempotency, privacy, retention, or audit controls.
 
-- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
-- An LLM API key (OpenAI, or any OpenAI-compatible provider) **OR** [Ollama](https://ollama.ai/) running locally
+## Product options
 
-## Contributing
-
-1. Fork this repository
-2. Create a new directory for your example (e.g. `my-example/`)
-3. Include a `README.md` with setup instructions and a `docker-compose.yml`
-4. Submit a pull request
-
-Each example should be fully self-contained and runnable with `docker compose up`.
+- **SyntheticBrew Cloud** is the managed service operated by SyntheticBrew.
+- **SyntheticBrew Enterprise** runs in customer-managed on-premises or private infrastructure with customer-controlled networking, identity, data, observability, backups, and upgrades.
 
 ## License
 
-MIT
+The example source in this repository is licensed under the MIT License. That license applies to these examples, not to the SyntheticBrew platform.

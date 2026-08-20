@@ -1,212 +1,78 @@
-# Company Assistant
+# Company Assistant Example
 
-A multi-agent company assistant built with [SyntheticBrew Engine](https://github.com/syntheticinc/syntheticbrew). Demonstrates agent routing, MCP tool servers, and multi-agent collaboration.
+This example contains a Go MCP server with mock employee and IT-support tools plus prompts for a supervisor, an HR specialist, and an IT specialist. Use the source as a pattern with SyntheticBrew Cloud or Enterprise.
 
-## What It Does
+The bundled Compose stack and YAML configuration target an older SyntheticBrew distribution and are not a current installation or import guide. Current delegation is configured with schema relationships rather than an agent-owned `can_spawn` field.
 
-Three agents work together to handle employee requests:
+## What the example demonstrates
 
-```
-                         +------------------+
-                         |   Supervisor     |
-   User request -------> |  (routes to the  |
-                         |  right agent)    |
-                         +--------+---------+
-                                  |
-                    +-------------+-------------+
-                    |                           |
-           +--------v--------+        +--------v--------+
-           |    HR Agent     |        |   IT Support    |
-           |                 |        |                 |
-           | - get_employees |        | - create_ticket |
-           | - leave_balance |        | - search_kb     |
-           | - search_kb     |        |                 |
-           +-----------------+        +-----------------+
+```text
+Employee request
+      |
+      v
+  supervisor
+   /      \
+  v        v
+HR agent  IT support
+  |          |
+  +---- company-data MCP ----+
 ```
 
-**Example conversations:**
+The supervisor decides whether a request belongs to HR or IT. In a current SyntheticBrew workflow, the schema contains `supervisor -> hr-agent` and `supervisor -> it-support` relationships. Each specialist receives only the tools required for its role.
 
-> **User:** "How many vacation days does Alice Johnson have left?"
->
-> Supervisor routes to HR Agent, which calls `get_leave_balance` and responds with the balance details.
+Try requests such as:
 
-> **User:** "My VPN is not connecting, can you help?"
->
-> Supervisor routes to IT Support, which searches the knowledge base for VPN troubleshooting steps.
+- “How much vacation does Alice have left?” — the HR specialist looks up the employee and leave balance.
+- “My VPN will not connect.” — the IT specialist searches the mock knowledge base.
+- “I need a monitor for my home office.” — the IT specialist can create a mock support ticket.
 
-> **User:** "I need a new monitor for my home office."
->
-> Supervisor routes to IT Support, which creates a ticket and explains the approval process.
+## Reusable MCP tools
 
-## Prerequisites
+| Tool | Purpose |
+| --- | --- |
+| `get_employees` | List the fictional employee records. |
+| `get_employee_by_id` | Read one employee record. |
+| `get_leave_balance` | Read mock leave balances. |
+| `create_ticket` | Create a mock IT ticket. |
+| `search_knowledge_base` | Search the sample HR and IT articles. |
 
-- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
-- An LLM API key (**one** of):
-  - [OpenAI API key](https://platform.openai.com/api-keys) (recommended: `gpt-4o`)
-  - Any OpenAI-compatible API (Groq, Together, etc.)
-  - [Ollama](https://ollama.ai/) running locally (free, no API key needed)
+The server implements MCP over stdio. An Enterprise operator can package it alongside the runtime. For Cloud, keep the same schemas and handlers but expose them through a protected remote Streamable HTTP MCP service.
 
-## Setup
+## Build the current workflow
 
-### 1. Clone and configure
+1. Follow the [Cloud quick start](https://syntheticbrew.ai/docs/getting-started/quick-start/) or deploy [Enterprise](https://syntheticbrew.ai/docs/deployment/enterprise-on-prem/) in your infrastructure.
+2. Adapt `mcp-server/` into a remote Streamable HTTP MCP service for Cloud. Enterprise operators may instead package the stdio binary inside their controlled deployment. Then add and verify it under **MCP Servers**.
+3. Create the supervisor, HR, and IT agents and attach only the tools each role needs.
+4. Create a schema with the supervisor as its entry agent. Add directed relationships from the supervisor to the two specialists.
+5. Enable **Accept chat requests** and use the bottom **Test Flow** panel to verify that HR and IT requests reach the intended specialist.
+6. Connect a product through the schema chat endpoint or generate a widget for the schema.
 
-```bash
-git clone https://github.com/syntheticinc/syntheticbrew-examples.git
-cd syntheticbrew-examples/company-assistant
+## Project map
 
-cp .env.example .env
-```
-
-Edit `.env` and add your API key:
-
-```env
-LLM_API_KEY=sk-your-openai-key-here
-LLM_BASE_URL=https://api.openai.com/v1
-LLM_MODEL=gpt-4o
-```
-
-**Using Ollama instead?** Make sure Ollama is running (`ollama serve`), then:
-
-```env
-LLM_API_KEY=ollama
-LLM_BASE_URL=http://host.docker.internal:11434/v1
-LLM_MODEL=llama3.2
-```
-
-### 2. Start the stack
-
-```bash
-docker compose up -d
-```
-
-This starts three services:
-- **PostgreSQL** (pgvector) -- agent state and configuration storage
-- **MCP Server** -- builds the company data tool server binary
-- **SyntheticBrew Engine** -- the multi-agent platform (port 8443)
-
-Wait ~30 seconds for the engine to start and import the agent configuration.
-
-### 3. Import agent configuration
-
-On first startup, import the agent config into the engine:
-
-```bash
-curl -X POST \
-  -H "Content-Type: application/x-yaml" \
-  -u admin:changeme \
-  -d @config/agents.yaml \
-  http://localhost:8443/api/v1/config/import
-```
-
-### 4. Verify in the Admin Dashboard
-
-Open [http://localhost:8443/admin](http://localhost:8443/admin) and log in with:
-- Username: `admin` (or whatever you set in `.env`)
-- Password: `changeme` (or whatever you set in `.env`)
-
-You should see three agents: **supervisor**, **hr-agent**, and **it-support**.
-
-## Chat via the API
-
-### Create a session and send a message
-
-```bash
-# Create a session
-curl -s -X POST \
-  -H "Content-Type: application/json" \
-  http://localhost:8443/api/v1/sessions \
-  | jq .
-
-# Send a message (replace SESSION_ID with the ID from above)
-curl -s -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"message": "How many vacation days does Alice Johnson have?"}' \
-  http://localhost:8443/api/v1/sessions/SESSION_ID/messages \
-  | jq .
-```
-
-### Stream events via SSE
-
-```bash
-curl -N http://localhost:8443/api/v1/sessions/SESSION_ID/events
-```
-
-## Chat via SyntheticBrew Web Client
-
-For a full chat UI, use the [SyntheticBrew Web Client](https://github.com/syntheticinc/syntheticbrew-web-client):
-
-```bash
-# In a separate directory
-git clone https://github.com/syntheticinc/syntheticbrew-web-client.git
-cd syntheticbrew-web-client
-npm install
-VITE_ENGINE_URL=http://localhost:8443 npm run dev
-```
-
-Then open [http://localhost:5173](http://localhost:5173) in your browser.
-
-## Project Structure
-
-```
+```text
 company-assistant/
-├── docker-compose.yml          # Engine + PostgreSQL + MCP server
-├── .env.example                # Environment variable template
-├── config/
-│   └── agents.yaml             # Agent definitions (supervisor, hr, it-support)
-├── scripts/
-│   └── seed-config.sh          # Auto-import config on first startup
-└── mcp-server/
-    ├── Dockerfile              # Builds the MCP server binary
-    ├── go.mod
-    ├── main.go                 # MCP stdio server (JSON-RPC 2.0)
-    └── data.go                 # Mock data (employees, tickets, KB)
+├── mcp-server/
+│   ├── main.go        # MCP protocol, tool schemas, and handlers
+│   └── data.go        # fictional employees, leave, tickets, and articles
+├── config/agents.yaml # historical prompts and tool intent; do not import as-is
+├── scripts/           # historical seed helper
+└── docker-compose.yml # historical standalone stack
 ```
 
-## How It Works
-
-### Agent Routing (Supervisor)
-
-The supervisor agent receives all user messages. Based on the content, it spawns either `hr-agent` or `it-support` to handle the request. This is configured via `can_spawn` in the agent definition.
-
-### MCP Tool Server
-
-The `hr-agent` and `it-support` agents connect to the same MCP server, which provides five tools:
-
-| Tool | Description |
-|------|-------------|
-| `get_employees` | List all employees |
-| `get_employee_by_id` | Get details for one employee |
-| `get_leave_balance` | Check vacation/sick/personal days |
-| `create_ticket` | Create an IT support ticket |
-| `search_knowledge_base` | Search HR policies and IT guides |
-
-The MCP server communicates via **stdio** (JSON-RPC 2.0 over stdin/stdout). The engine spawns it as a subprocess and sends tool calls as JSON-RPC requests.
-
-### Customizing
-
-- **Add more employees:** Edit `mcp-server/data.go` and rebuild
-- **Change agent behavior:** Edit `config/agents.yaml` and re-import
-- **Add new tools:** Add a tool definition in `main.go` and handler in `executeTool()`
-- **Use a different LLM:** Change `LLM_BASE_URL` and `LLM_MODEL` in `.env`
-
-## Stopping
-
-```bash
-docker compose down        # Stop containers (keep data)
-docker compose down -v     # Stop and delete all data
-```
+To adapt it, replace the mock records, add authorization inside every tool handler, choose which specialist receives each tool, and rewrite the prompts for your policies. Do not give the supervisor every specialist action merely because the tools share one server.
 
 ## Troubleshooting
 
-**Engine won't start:**
-Check logs with `docker compose logs engine`. Common issues:
-- Database not ready yet (wait a few seconds and try again)
-- Invalid API key or base URL
+- **No delegation tool:** verify both schema relationships and start a new session.
+- **Server works locally but not in Cloud:** stdio is local-process transport; deploy a remote HTTP transport reachable from Cloud.
+- **A specialist sees the wrong tools:** split the MCP services or tool assignments so each agent has least privilege.
+- **The response exposes another employee's data:** add caller identity and authorization checks before using any real source.
 
-**Agent not responding:**
-- Verify config was imported: check the Admin Dashboard
-- Check engine logs for LLM errors: `docker compose logs -f engine`
+The bundled employee and ticket records are fictional. Add authentication, authorization, redaction, and audit controls before adapting these tools to real company data.
 
-**MCP server errors:**
-- Rebuild: `docker compose build mcp-server`
-- Check if binary exists: `docker compose exec engine ls -la /opt/mcp/`
+## Current references
+
+- [Schemas and delegation](https://syntheticbrew.ai/docs/admin/schemas/)
+- [Agents](https://syntheticbrew.ai/docs/admin/agents/)
+- [MCP servers](https://syntheticbrew.ai/docs/admin/mcp-servers/)
+- [Widget embedding](https://syntheticbrew.ai/docs/admin/widgets/)

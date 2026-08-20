@@ -23,12 +23,11 @@
 
   <h2>Setup</h2>
   <ol>
-    <li>Start SyntheticBrew Engine: <code>docker compose up -d</code></li>
-    <li>Create an agent in Admin Dashboard (<code>http://localhost:8443/admin</code>)</li>
-    <li>Mark the agent as <strong>Public</strong></li>
-    <li>Create an API key with <strong>Chat (Public)</strong> scope</li>
-    <li>Replace <code>YOUR_API_KEY</code> and <code>YOUR_AGENT_NAME</code> below</li>
-    <li>Open this file in a browser</li>
+    <li>Create and test a schema in SyntheticBrew Cloud or Enterprise.</li>
+    <li>Enable <strong>Accept chat requests</strong> for that schema.</li>
+    <li>Use the management MCP <code>get_embed_snippet</code> tool to generate a complete embed.</li>
+    <li>Copy the generated origin, schema name, and Chat-scoped key into the script below.</li>
+    <li>Serve this file from an allowed widget origin and send a test message.</li>
   </ol>
 
   <h2>How It Works</h2>
@@ -36,19 +35,23 @@
   in the bottom-right corner. Click to open, type a message, and get AI responses streamed in real-time.</p>
 
   <h2>Configuration</h2>
-  <pre><code>&lt;script src="http://localhost:8443/widget.js"
-        data-agent="YOUR_AGENT_NAME"
-        data-api-key="YOUR_API_KEY"
+  <pre><code>&lt;script src="https://YOUR_SYNTHETICBREW_ORIGIN/widget.js"
+        data-schema="YOUR_SCHEMA_NAME"
+        data-api-key="YOUR_CHAT_SCOPED_KEY"
         data-theme="light"
         data-position="bottom-right"
         data-title="AI Assistant"&gt;
 &lt;/script&gt;</code></pre>
 
+  <p>The key is visible to every visitor. Give it only Chat scope, restrict allowed widget
+  origins, monitor usage, and revoke it when the page is retired.</p>
+
   <!-- SyntheticBrew Widget -->
-  <script src="http://localhost:8443/widget.js"
-          data-agent="support-bot"
-          data-api-key="bb_pk_replace_me"
+  <script src="https://YOUR_SYNTHETICBREW_ORIGIN/widget.js"
+          data-schema="YOUR_SCHEMA_NAME"
+          data-api-key="YOUR_CHAT_SCOPED_KEY"
           data-theme="light"
+          data-position="bottom-right"
           data-title="AI Assistant">
   </script>
 </body>
